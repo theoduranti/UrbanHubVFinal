@@ -1,6 +1,10 @@
 class EventsController < ApplicationController
   before_action :set_event, only: [:show, :edit, :update, :destroy]
 
+ 
+ 
+ 
+ 
   # GET /events
   # GET /events.json
   def index
@@ -23,9 +27,22 @@ class EventsController < ApplicationController
 
   # POST /events
   # POST /events.json
+
+  
+  # IL FAUT AJOUTER UN TRUC, CAR POUR LE MOMENT PAS POSSIBLE DE CREER UN EVENT DEPUIS SESSION PRO
+  # if current_ele = null                (ou trouver comment dire selon la session utilisée)
+  #     @event.creator = current_ele
+  # else 
+  #     @event.creator = current_ele
+  # end
   def create
     @event = Event.new(event_params)
-    @event.creator = current_ele
+    if ele_signed_in?
+      @event.creator = current_ele
+    elsif pro_signed_in?
+      @event.creator = current_pro
+    else
+    end
     respond_to do |format|
       if @event.save
         format.html { redirect_to @event, notice: 'Event was successfully created.' }
@@ -60,6 +77,52 @@ class EventsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+
+
+
+
+
+  def suscribe
+    @event = Event.find(params[:id])
+    if 
+    @event.attendees.include? current_ele
+    flash[:error] = "Vous participez déjà à l'événement !" 
+    redirect_to @event
+    else
+    @event.attendees << current_ele
+    flash[:success] = "Vous participez à l'événement en tant qu'élève!" 
+    redirect_to @event
+    end
+    if 
+      @event.attendees.include? current_pro
+      flash[:error] = "Vous participez déjà à l'événement !" 
+      redirect_to @event
+    else
+      @event.attendees << current_pro
+      flash[:success] = "Vous participez à l'événement en tant que professeur!" 
+      redirect_to @event
+    end
+  end
+
+  def adduser  
+    @user = User.find(params[:id])
+    @event = Event.find(params[:test])
+ #   if 
+ #   @event.attendees.include? @user
+ #   flash[:danger] = "#{@user.name} participe déjà à l'événement !" 
+ #   redirect_to @event
+ #   else
+    @event.attendees << @user
+    flash[:success] = "#{@user.name} est ajouté à l'événement ! !" 
+    redirect_to @event
+ #   end
+  end
+
+
+
+
+
 
   private
     # Use callbacks to share common setup or constraints between actions.

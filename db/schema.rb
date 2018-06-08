@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_06_07_203441) do
+ActiveRecord::Schema.define(version: 2018_06_08_134503) do
 
   create_table "eles", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -50,7 +50,23 @@ ActiveRecord::Schema.define(version: 2018_06_07_203441) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "ele_id"
+    t.integer "pro_id"
+    t.string "name"
+    t.text "description"
+    t.string "discipline"
+    t.string "date"
+    t.string "ville"
+    t.string "departement"
+    t.decimal "prix"
     t.index ["ele_id"], name: "index_events_on_ele_id"
+    t.index ["pro_id"], name: "index_events_on_pro_id"
+  end
+
+  create_table "events_pros", id: false, force: :cascade do |t|
+    t.integer "event_id", null: false
+    t.integer "pro_id", null: false
+    t.index ["event_id", "pro_id"], name: "index_events_pros_on_event_id_and_pro_id"
+    t.index ["pro_id", "event_id"], name: "index_events_pros_on_pro_id_and_event_id"
   end
 
   create_table "pros", force: :cascade do |t|
