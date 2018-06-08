@@ -38,9 +38,9 @@ class EventsController < ApplicationController
   def create
     @event = Event.new(event_params)
     if ele_signed_in?
-      @event.creator = current_ele
+      @event.creator_id = current_ele.id
     elsif pro_signed_in?
-      @event.creator = current_pro
+      @event.creator_id = current_pro.id
     else
     end
     respond_to do |format|
