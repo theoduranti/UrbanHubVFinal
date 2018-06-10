@@ -3,7 +3,8 @@ class Ele < ApplicationRecord
   # :confirmable, :lockable, :timeoutable and :omniauthable
 
   has_many :created_events, class_name: "Event", foreign_key: :creator_id
-	has_and_belongs_to_many :attended_events, class_name: "Event"
+  has_and_belongs_to_many :eleattended_events, class_name: "Event"
+  has_and_belongs_to_many :eleinvitated_events, class_name: "Event"
 
 
   devise :database_authenticatable, :registerable,
