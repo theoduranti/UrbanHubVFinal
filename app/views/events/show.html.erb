@@ -8,6 +8,7 @@
 <h2>créateur</h2>
 <p><%=@creator.firstname%></p></br></br>
 <h2>professeur</h2>
+<p><%=@event.professeur%></p>
 <% if @event.professeur != "vide" %>
 <p><%=@professeur_de_l_event.lastname%></p>
 <% else %>
@@ -17,16 +18,16 @@
 
 
 
-<h2>Les professeurs attendues </h2>
+<h2>Les professeurs invités</h2>
 <table class="table table-striped">
     <tr>
         <th>Nom</th>
         <th>Email</th>
     </tr>
-<% @event.proattendees.each do |attendee| %> 
+<% @event.proinvitatees.each do |invitatee| %> 
     <tr>
-        <td> <%= attendee.firstname %> </td>
-        <td> <%= attendee.email %> </td>
+        <td> <%= invitatee.firstname %> </td>
+        <td> <%= invitatee.email %> </td>
     </tr>
 <% end %> 
 </table></br></br>
@@ -48,11 +49,27 @@
 </table> </br></br>
 
 
+<h2>Les élèves invités </h2>
+<table class="table table-striped">
+<tr>
+    <th>Nom</th>
+    <th>Email</th>
+</tr>
+<% @event.eleinvitatees.each do |invitatee| %> 
+    <tr>
+    <td> <%= invitatee.firstname %> </td>
+    <td> <%= invitatee.email %> </td>
+
+    </tr>
+<% end %>
+</table> </br></br>
+
+
 
 #   add_pro à faire (controller, vues, routes,   pareil pour subscribe (vues et routes))
 <% if signed_in? %>
  
-        <h2> Ajoutez des participants </h2>
+        <h2> Inviter des élèves </h2>
 
         <table class="table table-striped">
             <tr>
@@ -69,7 +86,30 @@
                     <td><%= ele.firstname %></td>
                     <td><%= ele.email %></td>
                     
-                    <td><%= link_to "Inviter ce participant", { :controller => "events", :action => "addeletoinvitation", :id => ele.id, :test => @event.id}%></td>
+                    <td><%= link_to "Inviter cet élève", { :controller => "events", :action => "addeletoinvitation", :id => ele.id, :test => @event.id}%></td>
+                </tr>
+                <% end %>
+            <% end %>
+        </table>
+
+        <h2> Inviter des prof </h2>
+
+        <table class="table table-striped">
+            <tr>
+                <th>Nom</th>
+                <th>Email</th>
+                <th></th>
+                <th></th>
+            </tr>
+
+
+            <% @allpro.each do |pro| %> 
+                <% unless @event.proattendees.include? pro %>
+                <tr>
+                    <td><%= pro.firstname %></td>
+                    <td><%= pro.email %></td>
+                    
+                    <td><%= link_to "Inviter ce professeur", { :controller => "events", :action => "addprotoinvitation", :id => pro.id, :test => @event.id}%></td>
                 </tr>
                 <% end %>
             <% end %>

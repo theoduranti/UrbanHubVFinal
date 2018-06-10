@@ -125,6 +125,21 @@ class EventsController < ApplicationController
   end
 
 
+  def addprotoinvitation  
+    @pro = Pro.find(params[:id])
+    @event = Event.find(params[:test])
+ #   if 
+ #   @event.attendees.include? @user
+ #   flash[:danger] = "#{@user.name} participe déjà à l'événement !" 
+ #   redirect_to @event
+ #   else
+    @event.proinvitatees << @pro
+    flash[:success] = "#{@pro.firstname} est ajouté à l'événement ! !" 
+    redirect_to @event
+ #   end
+  end
+
+
 
 
 

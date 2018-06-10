@@ -7,6 +7,8 @@ Rails.application.routes.draw do
 
   get "events/subscribe/:id", to: "events#subscribe"
 
+  get "events/:id/:id", to: "events#addprotoinvitation"
   get "events/:id/:id", to: "events#addeletoinvitation"
+  
   
 end
