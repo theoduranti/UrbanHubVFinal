@@ -105,6 +105,7 @@ class EventsController < ApplicationController
     elsif
       pro_signed_in? 
       @event.proattendees << current_pro
+      @event.professeur = current_pro.email
       flash[:success] = "Vous participez à l'événement en tant qu'élève!" 
       redirect_to "/"
     end
@@ -139,5 +140,6 @@ class EventsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def event_params
       params.fetch(:event, {})
+      params.permit(:name, :discipline, :description, :date, :ville, :price)
     end
 end
