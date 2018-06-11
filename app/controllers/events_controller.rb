@@ -106,8 +106,10 @@ class EventsController < ApplicationController
       pro_signed_in? && @event.professor_id == nil
       @event.update_columns(professor_id: current_pro.id)
       @event.update_columns(professeur: "present")
-      @event.proattendees << current_pro
       flash[:success] = "Vous participez à l'événement en tant qu'élève!" 
+      redirect_to "/"
+    else
+      flash[:danger] = "Vous participez déjà à l'événement !"
       redirect_to "/"
     end
 
@@ -116,7 +118,7 @@ class EventsController < ApplicationController
 
 
   def addeletoinvitation  
-    @ele = Ele.find(params[:id])
+    @ele = Ele.find(params[:ele_id])
     @event = Event.find(params[:test])
  #   if 
  #   @event.attendees.include? @user
@@ -131,7 +133,7 @@ class EventsController < ApplicationController
 
 
   def addprotoinvitation  
-    @pro = Pro.find(params[:id])
+    @pro = Pro.find(params[:pro_id])
     @event = Event.find(params[:test])
  #   if 
  #   @event.attendees.include? @user

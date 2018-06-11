@@ -33,19 +33,7 @@
 <% end %> 
 </table></br>
 
-<h3>Le professeur participant</h3>
-<table class="table table-striped">
-    <tr>
-        <th>Nom</th>
-        <th>Email</th>
-    </tr>
-<% @event.proattendees.each do |attendee| %> 
-    <tr>
-        <td> <%= attendee.firstname %> </td>
-        <td> <%= attendee.email %> </td>
-    </tr>
-<% end %> 
-</table></br>
+
 <% if signed_in? %>
 
 
@@ -61,12 +49,12 @@
 
 
             <% @allpro.each do |pro| %> 
-                <% unless @event.proattendees.include? pro %>
+                <% unless @event.proinvitatees.include? pro %>
                 <tr>
                     <td><%= pro.firstname %></td>
                     <td><%= pro.email %></td>
                     
-                    <td><%= link_to "Inviter ce professeur", { :controller => "events", :action => "addprotoinvitation", :id => pro.id, :test => @event.id}%></td>
+                    <td><%= link_to "Inviter ce professeur", { :controller => "events", :action => "addprotoinvitation", :pro_id => pro.id, :test => @event.id}%></td>
                 </tr>
                 <% end %>
             <% end %>
@@ -112,7 +100,7 @@
                     <td><%= ele.firstname %></td>
                     <td><%= ele.email %></td>
                     
-                    <td><%= link_to "Inviter cet élève", { :controller => "events", :action => "addeletoinvitation", :id => ele.id, :test => @event.id}%></td>
+                    <td><%= link_to "Inviter cet élève", { :controller => "events", :action => "addeletoinvitation", :ele_id => ele.id, :test => @event.id}%></td>
                 </tr>
                 <% end %>
             <% end %>
