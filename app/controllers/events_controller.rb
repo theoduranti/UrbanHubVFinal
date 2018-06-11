@@ -23,7 +23,10 @@ class EventsController < ApplicationController
       @professor = Pro.find(@event.professor_id)
     else
     end
-
+    if @event.professeur == "present"
+      @professor = Pro.find(@event.professor_id)
+    else
+    end
   end
 
   # GET /events/new
@@ -48,6 +51,7 @@ class EventsController < ApplicationController
     elsif pro_signed_in?
       @event.creator_id = current_pro.id
       @event.naturecreateur = "professeur"
+      @event.professeur = "present"
       @event.professor_id = current_pro.id
     else
     end
@@ -99,9 +103,9 @@ class EventsController < ApplicationController
       flash[:success] = "Vous participez à l'événement en tant qu'élève!" 
       redirect_to "/"
     elsif
-      pro_signed_in? && @event.professor_id == null
-      @event.naturecreateur = "professeur"
-      @event.professor_id = current_pro.id 
+      pro_signed_in? && @event.professor_id == nil
+      @event.update_columns(professor_id: current_pro.id)
+      @event.update_columns(professeur: "present")
       @event.proattendees << current_pro
       flash[:success] = "Vous participez à l'événement en tant qu'élève!" 
       redirect_to "/"

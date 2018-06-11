@@ -5,11 +5,11 @@
 
 <h1><%= @event.name %></h1></br></br>
 
-<h2>créateur</h2>
+<h2>Gérant événement</h2>
 <p><%=@creator.firstname%></p>
 <p><%=@creator.email%></p></br></br>
 <h1>professeur</h1>
-<% if @event.naturecreateur == "professeur" %>
+<% if @event.professeur == "present" %>
     <p>===============</p>
     <p><%=@professor.firstname%></p></br></br>
 <% else %>
@@ -29,6 +29,20 @@
     <tr>
         <td> <%= invitatee.firstname %> </td>
         <td> <%= invitatee.email %> </td>
+    </tr>
+<% end %> 
+</table></br>
+
+<h3>Le professeur participant</h3>
+<table class="table table-striped">
+    <tr>
+        <th>Nom</th>
+        <th>Email</th>
+    </tr>
+<% @event.proattendees.each do |attendee| %> 
+    <tr>
+        <td> <%= attendee.firstname %> </td>
+        <td> <%= attendee.email %> </td>
     </tr>
 <% end %> 
 </table></br>
