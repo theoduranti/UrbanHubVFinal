@@ -6,7 +6,6 @@ class Ele < ApplicationRecord
   has_and_belongs_to_many :eleattended_events, class_name: "Event"
   has_and_belongs_to_many :eleinvitated_events, class_name: "Event"
 
-
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 end

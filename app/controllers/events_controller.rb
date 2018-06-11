@@ -1,5 +1,5 @@
 class EventsController < ApplicationController
-  before_action :set_event, only: [:show, :edit, :update, :destroy]
+  before_action :set_event, only: [:show, :edit, :update, :destroy, :subscribe]
  
  
  
@@ -15,17 +15,15 @@ class EventsController < ApplicationController
     @event = Event.find(params[:id])
     @allele = Ele.all
     @allpro = Pro.all
+    
     if @event.naturecreateur == "eleve"
       @creator = Ele.find(@event.creator_id)
     elsif @event.naturecreateur == "professeur"
       @creator = Pro.find(@event.creator_id)
+      @professor = Pro.find(@event.professor_id)
     else
     end
-    if @event.professeur != "vide"
-      @professeur_de_l_event = Pro.find_by_email(@event.professeur)
-    else
-      @professeur_de_l_envent = "ajouter"
-    end
+
   end
 
   # GET /events/new
@@ -50,7 +48,7 @@ class EventsController < ApplicationController
     elsif pro_signed_in?
       @event.creator_id = current_pro.id
       @event.naturecreateur = "professeur"
-      @event.professeur = current_pro.email
+      @event.professor_id = current_pro.id
     else
     end
     respond_to do |format|
@@ -101,14 +99,17 @@ class EventsController < ApplicationController
       flash[:success] = "Vous participez à l'événement en tant qu'élève!" 
       redirect_to "/"
     elsif
-      pro_signed_in? 
+      pro_signed_in? && @event.professor_id == null
+      @event.naturecreateur = "professeur"
+      @event.professor_id = current_pro.id 
       @event.proattendees << current_pro
-      @event.professeur = current_pro.email
       flash[:success] = "Vous participez à l'événement en tant qu'élève!" 
       redirect_to "/"
     end
 
   end
+
+
 
   def addeletoinvitation  
     @ele = Ele.find(params[:id])

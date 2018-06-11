@@ -2,23 +2,24 @@
 
 <p class="text-center">  <%= link_to "Rejoindre l'événement", { :controller => "events", :action => "subscribe"}, class: "btn btn-success" %> </p>
 
-<h2>Nom de levent</h2>
-<p><%= @event.name %></p></br></br>
+
+<h1><%= @event.name %></h1></br></br>
 
 <h2>créateur</h2>
-<p><%=@creator.firstname%></p></br></br>
-<h2>professeur</h2>
-<p><%=@event.professeur%></p>
-<% if @event.professeur != "vide" %>
-<p><%=@professeur_de_l_event.lastname%></p>
+<p><%=@creator.firstname%></p>
+<p><%=@creator.email%></p></br></br>
+<h1>professeur</h1>
+<% if @event.naturecreateur == "professeur" %>
+    <p>===============</p>
+    <p><%=@professor.firstname%></p></br></br>
 <% else %>
-<p><%=@professeur_de_l_event%></p>
+<p>Pas encore de prof, invitez-en ci-dessous</p>
 <% end %> </br></br>
 
 
 
 
-<h2>Les professeurs invités</h2>
+<h3>Les professeurs invités</h3>
 <table class="table table-striped">
     <tr>
         <th>Nom</th>
@@ -30,69 +31,11 @@
         <td> <%= invitatee.email %> </td>
     </tr>
 <% end %> 
-</table></br></br>
-
-
-<h2>Les élèves attendues </h2>
-<table class="table table-striped">
-<tr>
-    <th>Nom</th>
-    <th>Email</th>
-</tr>
-<% @event.eleattendees.each do |attendee| %> 
-    <tr>
-    <td> <%= attendee.firstname %> </td>
-    <td> <%= attendee.email %> </td>
-
-    </tr>
-<% end %>
-</table> </br></br>
-
-
-<h2>Les élèves invités </h2>
-<table class="table table-striped">
-<tr>
-    <th>Nom</th>
-    <th>Email</th>
-</tr>
-<% @event.eleinvitatees.each do |invitatee| %> 
-    <tr>
-    <td> <%= invitatee.firstname %> </td>
-    <td> <%= invitatee.email %> </td>
-
-    </tr>
-<% end %>
-</table> </br></br>
-
-
-
-#   add_pro à faire (controller, vues, routes,   pareil pour subscribe (vues et routes))
+</table></br>
 <% if signed_in? %>
- 
-        <h2> Inviter des élèves </h2>
-
-        <table class="table table-striped">
-            <tr>
-                <th>Nom</th>
-                <th>Email</th>
-                <th></th>
-                <th></th>
-            </tr>
 
 
-            <% @allele.each do |ele| %> 
-                <% unless @event.eleattendees.include? ele %>
-                <tr>
-                    <td><%= ele.firstname %></td>
-                    <td><%= ele.email %></td>
-                    
-                    <td><%= link_to "Inviter cet élève", { :controller => "events", :action => "addeletoinvitation", :id => ele.id, :test => @event.id}%></td>
-                </tr>
-                <% end %>
-            <% end %>
-        </table>
-
-        <h2> Inviter des prof </h2>
+        <h3> Inviter des prof </h3>
 
         <table class="table table-striped">
             <tr>
@@ -116,9 +59,74 @@
         </table>
 
 <% else %>
-    <h2> Vous souhaitez ajouter des participants à cet événement ? </h2>
-    <p class="text-center"><%= link_to "Log in", login_path, class: "btn btn-primary" %> </p>
+    <p> Connectez-vous pour ajouter des participants </p>
+<% end %></br></br>
+
+
+<h1>Les élèves</h1>
+<h3>Participants </h3>
+<table class="table table-striped">
+<tr>
+    <th>Nom</th>
+    <th>Email</th>
+</tr>
+<% @event.eleattendees.each do |attendee| %> 
+    <tr>
+    <td> <%= attendee.firstname %> </td>
+    <td> <%= attendee.email %> </td>
+
+    </tr>
 <% end %>
+</table> </br></br>
+
+<% if signed_in? %>
+ 
+        <h3> Inviter des élèves </h3>
+
+        <table class="table table-striped">
+            <tr>
+                <th>Nom</th>
+                <th>Email</th>
+                <th></th>
+                <th></th>
+            </tr>
+
+
+            <% @allele.each do |ele| %> 
+                <% unless @event.eleattendees.include? ele %>
+                <tr>
+                    <td><%= ele.firstname %></td>
+                    <td><%= ele.email %></td>
+                    
+                    <td><%= link_to "Inviter cet élève", { :controller => "events", :action => "addeletoinvitation", :id => ele.id, :test => @event.id}%></td>
+                </tr>
+                <% end %>
+            <% end %>
+        </table>
+<% else %>
+        <p> Connectez-vous pour ajouter des participants </p>
+<% end %></br></br>
+
+
+<h3>Invités </h3>
+<table class="table table-striped">
+<tr>
+    <th>Nom</th>
+    <th>Email</th>
+</tr>
+<% @event.eleinvitatees.each do |invitatee| %> 
+    <tr>
+    <td> <%= invitatee.firstname %> </td>
+    <td> <%= invitatee.email %> </td>
+
+    </tr>
+<% end %>
+</table> </br></br>
+
+
+
+#   add_pro à faire (controller, vues, routes,   pareil pour subscribe (vues et routes))
+
 
 
 

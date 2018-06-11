@@ -3,6 +3,7 @@ class Pro < ApplicationRecord
   # :confirmable, :lockable, :timeoutable and :omniauthable
 
   has_many :created_events, class_name: "Event", foreign_key: :creator_id
+  has_many :professored_events, class_name: "Event", foreign_key: :professor_id, optionnal: true
   has_and_belongs_to_many :proattended_events, class_name: "Event"
   has_and_belongs_to_many :proinvitated_events, class_name: "Event"
 
