@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_06_12_162624) do
+ActiveRecord::Schema.define(version: 2018_06_12_164404) do
 
   create_table "eles", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -54,7 +54,7 @@ ActiveRecord::Schema.define(version: 2018_06_12_162624) do
     t.string "name"
     t.text "description"
     t.string "discipline"
-    t.datetime "date"
+    t.string "date"
     t.string "ville"
     t.string "departement"
     t.decimal "prix"
