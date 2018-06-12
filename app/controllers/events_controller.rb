@@ -99,6 +99,7 @@ class EventsController < ApplicationController
     @event = Event.find(params[:id])
     if 
       ele_signed_in?
+      @event.update_columns(asubscribe: current_ele.id)
       @event.eleattendees << current_ele
       flash[:success] = "Vous participez à l'événement en tant qu'élève!" 
       redirect_to "/"

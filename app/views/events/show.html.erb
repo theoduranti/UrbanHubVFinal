@@ -73,11 +73,13 @@
     <th>Email</th>
 </tr>
 <% @event.eleattendees.each do |attendee| %> 
+    <% if @event.asubscribe.to_s.include? attendee.id.to_s %> 
     <tr>
     <td> <%= attendee.firstname %> </td>
     <td> <%= attendee.email %> </td>
-
     </tr>
+    <% else %>
+    <% end %>
 <% end %>
 </table> </br></br>
 
@@ -117,11 +119,13 @@
     <th>Email</th>
 </tr>
 <% @event.eleinvitatees.each do |invitatee| %> 
+    <% if @event.asubscribe.to_s.include? invitatee.id.to_s %> 
+    <% else %>
     <tr>
     <td> <%= invitatee.firstname %> </td>
     <td> <%= invitatee.email %> </td>
-
     </tr>
+    <% end %>
 <% end %>
 </table> </br></br>
 
