@@ -45,6 +45,7 @@ class EventsController < ApplicationController
   def create
     @event = Event.new(event_params)
     @event.professeur = "vide"
+    @event.etat = "open"
     if ele_signed_in?
       @event.creator_id = current_ele.id
       @event.naturecreateur = "eleve"
@@ -98,8 +99,62 @@ class EventsController < ApplicationController
   def subscribe
     @event = Event.find(params[:id])
     if 
-      ele_signed_in?
+      ele_signed_in? && @event.asubscribe == nil
       @event.update_columns(asubscribe: current_ele.id)
+      @event.eleattendees << current_ele
+      flash[:success] = "Vous participez à l'événement en tant qu'élève!" 
+      redirect_to "/"
+    elsif
+      ele_signed_in? && @event.asubscribe2 == nil
+      @event.update_columns(asubscribe2: current_ele.id)
+      @event.eleattendees << current_ele
+      flash[:success] = "Vous participez à l'événement en tant qu'élève!" 
+      redirect_to "/"
+    elsif
+      ele_signed_in? && @event.asubscribe3 == nil
+      @event.update_columns(asubscribe3: current_ele.id)
+      @event.eleattendees << current_ele
+      flash[:success] = "Vous participez à l'événement en tant qu'élève!" 
+      redirect_to "/"
+    elsif
+      ele_signed_in? && @event.asubscribe4 == nil
+      @event.update_columns(asubscribe4: current_ele.id)
+      @event.eleattendees << current_ele
+      flash[:success] = "Vous participez à l'événement en tant qu'élève!" 
+      redirect_to "/"
+    elsif
+      ele_signed_in? && @event.asubscribe5 == nil
+      @event.update_columns(asubscribe5: current_ele.id)
+      @event.eleattendees << current_ele
+      flash[:success] = "Vous participez à l'événement en tant qu'élève!" 
+      redirect_to "/"
+    elsif
+      ele_signed_in? && @event.asubscribe6 == nil
+      @event.update_columns(asubscribe6: current_ele.id)
+      @event.eleattendees << current_ele
+      flash[:success] = "Vous participez à l'événement en tant qu'élève!" 
+      redirect_to "/"
+    elsif
+      ele_signed_in? && @event.asubscribe7 == nil
+      @event.update_columns(asubscribe7: current_ele.id)
+      @event.eleattendees << current_ele
+      flash[:success] = "Vous participez à l'événement en tant qu'élève!" 
+      redirect_to "/"
+    elsif
+      ele_signed_in? && @event.asubscribe8 == nil
+      @event.update_columns(asubscribe8: current_ele.id)
+      @event.eleattendees << current_ele
+      flash[:success] = "Vous participez à l'événement en tant qu'élève!" 
+      redirect_to "/"
+    elsif
+      ele_signed_in? && @event.asubscribe9 == nil
+      @event.update_columns(asubscribe9: current_ele.id)
+      @event.eleattendees << current_ele
+      flash[:success] = "Vous participez à l'événement en tant qu'élève!" 
+      redirect_to "/"
+    elsif
+      ele_signed_in? && @event.asubscribe10 == nil
+      @event.update_columns(asubscribe10: current_ele.id)
       @event.eleattendees << current_ele
       flash[:success] = "Vous participez à l'événement en tant qu'élève!" 
       redirect_to "/"
@@ -113,7 +168,6 @@ class EventsController < ApplicationController
       flash[:danger] = "Vous participez déjà à l'événement !"
       redirect_to "/"
     end
-
   end
 
 
@@ -148,8 +202,137 @@ class EventsController < ApplicationController
   end
 
 
+  def closingevent
+    @event = Event.find(params[:id])
+    @event.update_columns(etat: "close")
+  # il faudra qu'elle envoie un mail à tous les ele enregistrés dans @event.subscribeX
+  # "le prof a validé l'event, allez sur la page de l'event pour payer et recevoir votre pass"
+    redirect_to @event
+  end
 
 
+  def pay
+    @event = Event.find(params[:id])
+# faire payer grace a stripe et une fois que c'est fait, envoie de l'email avec pass
+    if 
+      ele_signed_in? && @event.apayer == nil
+      @event.update_columns(apayer: current_ele.id)
+    elsif
+      ele_signed_in? && @event.apayer2 == nil
+      @event.update_columns(apayer2: current_ele.id)
+    elsif
+      ele_signed_in? && @event.apayer3 == nil
+      @event.update_columns(apayer3: current_ele.id)
+    elsif
+      ele_signed_in? && @event.apayer4 == nil
+      @event.update_columns(apayer4: current_ele.id)
+    elsif
+      ele_signed_in? && @event.apayer5 == nil
+      @event.update_columns(apayer5: current_ele.id)
+    elsif
+      ele_signed_in? && @event.apayer6 == nil
+      @event.update_columns(apayer6: current_ele.id)
+    elsif
+      ele_signed_in? && @event.apayer7 == nil
+      @event.update_columns(apayer7: current_ele.id)
+    elsif
+      ele_signed_in? && @event.asubscribe8 == nil
+      @event.update_columns(apayer8: current_ele.id)
+    elsif
+      ele_signed_in? && @event.apayer9 == nil
+      @event.update_columns(apayer9: current_ele.id)
+    elsif
+      ele_signed_in? && @event.apayer10 == nil
+      @event.update_columns(apayer10: current_ele.id)
+    else
+    end
+    redirect_to @event
+  end
+
+  def subscibeandpay
+    @event = Event.find(params[:id])
+    @event = Event.find(params[:id])
+    if 
+      ele_signed_in? && @event.asubscribe == nil
+      @event.update_columns(asubscribe: current_ele.id)
+      @event.update_columns(apayer: current_ele.id)
+      @event.eleattendees << current_ele
+      flash[:success] = "Vous participez à l'événement en tant qu'élève!" 
+      redirect_to "/"
+    elsif
+      ele_signed_in? && @event.asubscribe2 == nil
+      @event.update_columns(asubscribe2: current_ele.id)
+      @event.update_columns(apayer2: current_ele.id)
+      @event.eleattendees << current_ele
+      flash[:success] = "Vous participez à l'événement en tant qu'élève!" 
+      redirect_to "/"
+    elsif
+      ele_signed_in? && @event.asubscribe3 == nil
+      @event.update_columns(asubscribe3: current_ele.id)
+      @event.update_columns(apayer3: current_ele.id)
+      @event.eleattendees << current_ele
+      flash[:success] = "Vous participez à l'événement en tant qu'élève!" 
+      redirect_to "/"
+    elsif
+      ele_signed_in? && @event.asubscribe4 == nil
+      @event.update_columns(asubscribe4: current_ele.id)
+      @event.update_columns(apayer4: current_ele.id)
+      @event.eleattendees << current_ele
+      flash[:success] = "Vous participez à l'événement en tant qu'élève!" 
+      redirect_to "/"
+    elsif
+      ele_signed_in? && @event.asubscribe5 == nil
+      @event.update_columns(asubscribe5: current_ele.id)
+      @event.update_columns(apayer5: current_ele.id)
+      @event.eleattendees << current_ele
+      flash[:success] = "Vous participez à l'événement en tant qu'élève!" 
+      redirect_to "/"
+    elsif
+      ele_signed_in? && @event.asubscribe6 == nil
+      @event.update_columns(asubscribe6: current_ele.id)
+      @event.update_columns(apayer6: current_ele.id)
+      @event.eleattendees << current_ele
+      flash[:success] = "Vous participez à l'événement en tant qu'élève!" 
+      redirect_to "/"
+    elsif
+      ele_signed_in? && @event.asubscribe7 == nil
+      @event.update_columns(asubscribe7: current_ele.id)
+      @event.update_columns(apayer7: current_ele.id)
+      @event.eleattendees << current_ele
+      flash[:success] = "Vous participez à l'événement en tant qu'élève!" 
+      redirect_to "/"
+    elsif
+      ele_signed_in? && @event.asubscribe8 == nil
+      @event.update_columns(asubscribe8: current_ele.id)
+      @event.update_columns(apayer8: current_ele.id)
+      @event.eleattendees << current_ele
+      flash[:success] = "Vous participez à l'événement en tant qu'élève!" 
+      redirect_to "/"
+    elsif
+      ele_signed_in? && @event.asubscribe9 == nil
+      @event.update_columns(asubscribe9: current_ele.id)
+      @event.update_columns(apayer9: current_ele.id)
+      @event.eleattendees << current_ele
+      flash[:success] = "Vous participez à l'événement en tant qu'élève!" 
+      redirect_to "/"
+    elsif
+      ele_signed_in? && @event.asubscribe10 == nil
+      @event.update_columns(asubscribe10: current_ele.id)
+      @event.update_columns(apayer10: current_ele.id)
+      @event.eleattendees << current_ele
+      flash[:success] = "Vous participez à l'événement en tant qu'élève!" 
+      redirect_to "/"
+    elsif
+      pro_signed_in? && @event.professor_id == nil
+      @event.update_columns(professor_id: current_pro.id)
+      @event.update_columns(professeur: "present")
+      flash[:success] = "Vous participez à l'événement en tant qu'élève!" 
+      redirect_to "/"
+    else
+      flash[:danger] = "Vous participez déjà à l'événement !"
+      redirect_to "/"
+    end
+  end
 
 
   private

@@ -9,41 +9,43 @@
       <% end %>
       </ul>
     </div>
-  <% end %>
+  <% end %></br>
 
 
   <div class="field">
     <%= form.label :name %>
     <%= form.text_field :name %>
-  </div>
+  </div></br>
 
   <div class="field">
     <%= form.label :discipline %>
     <%= form.text_field :discipline %>
-  </div>
+  </div></br>
 
   <div class="field">
     <%= form.label :description %>
     <%= form.text_field :description %>
-  </div>
+  </div></br>
 
   <div class="field">
     <%= form.label :ville %>
     <%= form.text_field :ville %>
-  </div>
+  </div></br>
 
   <div class="field">
     <%= form.label :price %>
-    <%= form.text_field :price %>
-  </div>
+    <p> Prix min conseillé pour que levent soit attractif pour les professeurs : 3€ <p>
+    <p> Prix max conseillé pour que levent soit attractif pour les élèves : 5€ <p>
+    <%= form.text_field :price %><p>€</p>
+  </div></br>
 
   <div class="field">
     <%= form.label :date %>
     <%= form.date_select :date %>
-  </div>
+  </div></br>
 
 
   <div class="actions">
     <%= form.submit %>
-  </div>
+  </div></br>
 <% end %>

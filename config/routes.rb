@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   root 'events#index'
 
   get "events/subscribe/:id", to: "events#subscribe"
+  get "events/closingevent/:id", to: "events#closingevent"
 
   get "events/ele/:ele_id/:id", to: "events#addeletoinvitation"
   get "events/pro/:pro_id/:id", to: "events#addprotoinvitation"

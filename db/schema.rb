@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_06_12_164404) do
+ActiveRecord::Schema.define(version: 2018_06_13_142959) do
 
   create_table "eles", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -63,6 +63,26 @@ ActiveRecord::Schema.define(version: 2018_06_12_164404) do
     t.string "professeur"
     t.integer "professor_id"
     t.integer "asubscribe"
+    t.integer "asubscribe2"
+    t.integer "asubscribe3"
+    t.integer "asubscribe4"
+    t.integer "asubscribe5"
+    t.integer "asubscribe6"
+    t.integer "asubscribe7"
+    t.integer "asubscribe8"
+    t.integer "asubscribe9"
+    t.integer "asubscribe10"
+    t.string "etat"
+    t.integer "apayer"
+    t.integer "apayer2"
+    t.integer "apayer3"
+    t.integer "apayer4"
+    t.integer "apayer5"
+    t.integer "apayer6"
+    t.integer "apayer7"
+    t.integer "apayer8"
+    t.integer "apayer9"
+    t.integer "apayer10"
     t.index ["ele_id"], name: "index_events_on_ele_id"
     t.index ["pro_id"], name: "index_events_on_pro_id"
   end
