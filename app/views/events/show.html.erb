@@ -45,7 +45,8 @@
         <% if @event.etat == "open" %>
             <p class="text-center">  <%= link_to "Rejoindre l'événement", { :controller => "events", :action => "subscribe"}, class: "btn btn-success" %> </p>
         <% else %>
-            <p> LINK VERS subscribeandpay </p>
+            <p class="text-center">  <%= link_to "Vous inscrire, payer et recevoir votre pass", { :controller => "events", :action => "subscribeandpay"}, class: "btn btn-success" %> </p>
+            <p> BOUTON PAYER ET SUBSCRIBE </p>
         <% end %>
     <% else %>
     <% end %>
@@ -53,32 +54,45 @@
 <% elsif @event.etat == "close" %>
     <% if ele_signed_in? %>
         <% if @event.asubscibe.to_s.include? current_ele.id.to_s %>
+            <p class="text-center">  <%= link_to " payer et recevoir votre pass", { :controller => "events", :action => "pay"}, class: "btn btn-success" %> </p>
             <p> BOUTON PAYER renvoie vers la fonction pay (stripe) (qui permet de rentrer le current user dans apayer et de leur envoyer un mail) </p>
         <% elsif @event.asubscibe2.to_s.include? current_ele.id.to_s %>
+            <p class="text-center">  <%= link_to " payer et recevoir votre pass", { :controller => "events", :action => "pay"}, class: "btn btn-success" %> </p>
             <p> BOUTON PAYER renvoie vers la fonction pay (stripe) (qui permet de rentrer le current user dans apayer et de leur envoyer un mail) </p>
         <% elsif @event.asubscibe3.to_s.include? current_ele.id.to_s %>
+            <p class="text-center">  <%= link_to " payer et recevoir votre pass", { :controller => "events", :action => "pay"}, class: "btn btn-success" %> </p> 
             <p> BOUTON PAYER renvoie vers la fonction pay (stripe) (qui permet de rentrer le current user dans apayer et de leur envoyer un mail) </p>
         <% elsif @event.asubscibe4.to_s.include? current_ele.id.to_s %>
+            <p class="text-center">  <%= link_to " payer et recevoir votre pass", { :controller => "events", :action => "pay"}, class: "btn btn-success" %> </p>
             <p> BOUTON PAYER renvoie vers la fonction pay (stripe) (qui permet de rentrer le current user dans apayer et de leur envoyer un mail) </p>
         <% elsif @event.asubscibe5.to_s.include? current_ele.id.to_s %>
+            <p class="text-center">  <%= link_to " payer et recevoir votre pass", { :controller => "events", :action => "pay"}, class: "btn btn-success" %> </p>
             <p> BOUTON PAYER renvoie vers la fonction pay (stripe) (qui permet de rentrer le current user dans apayer et de leur envoyer un mail) </p>
         <% elsif @event.asubscibe6.to_s.include? current_ele.id.to_s %>
+            <p class="text-center">  <%= link_to " payer et recevoir votre pass", { :controller => "events", :action => "pay"}, class: "btn btn-success" %> </p>
             <p> BOUTON PAYER renvoie vers la fonction pay (stripe) (qui permet de rentrer le current user dans apayer et de leur envoyer un mail) </p>
         <% elsif @event.asubscibe7.to_s.include? current_ele.id.to_s %>
+            <p class="text-center">  <%= link_to " payer et recevoir votre pass", { :controller => "events", :action => "pay"}, class: "btn btn-success" %> </p>
             <p> BOUTON PAYER renvoie vers la fonction pay (stripe) (qui permet de rentrer le current user dans apayer et de leur envoyer un mail) </p>
         <% elsif @event.asubscibe8.to_s.include? current_ele.id.to_s %>
+            <p class="text-center">  <%= link_to ", payer et recevoir votre pass", { :controller => "events", :action => "pay"}, class: "btn btn-success" %> </p>
             <p> BOUTON PAYER renvoie vers la fonction pay (stripe) (qui permet de rentrer le current user dans apayer et de leur envoyer un mail) </p>
         <% elsif @event.asubscibe9.to_s.include? current_ele.id.to_s %>
+            <p class="text-center">  <%= link_to " payer et recevoir votre pass", { :controller => "events", :action => "pay"}, class: "btn btn-success" %> </p>
             <p> BOUTON PAYER renvoie vers la fonction pay (stripe) (qui permet de rentrer le current user dans apayer et de leur envoyer un mail) </p>
         <% elsif @event.asubscibe10.to_s.include? current_ele.id.to_s %>
+            <p class="text-center">  <%= link_to " payer et recevoir votre pass", { :controller => "events", :action => "pay"}, class: "btn btn-success" %> </p>        
             <p> BOUTON PAYER renvoie vers la fonction pay (stripe) (qui permet de rentrer le current user dans apayer et de leur envoyer un mail) </p>
         <% elsif @event.asubscibe10 == nil %>
-            <p> BOUTON PAYER ET SUBSCRIBE renvoie vers la fonction subscribeandpay (qui cumule subscribe et pay)
+            <p class="text-center">  <%= link_to " payer et recevoir votre pass", { :controller => "events", :action => "pay"}, class: "btn btn-success" %> </p>        
+            <p> BOUTON PAYER renvoie vers la fonction pay (stripe) (qui permet de rentrer le current user dans apayer et de leur envoyer un mail) </p>
         <% else %>
             <p> Cet événement est complet </p>
         <% end %>
-    <% else %>
+    <% else  %> <p> vous etes profs et vous avez validé l évent</p>
+
     <% end %>
+
 <% else %>
 <% end %>
 </br></br>
