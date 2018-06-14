@@ -102,8 +102,6 @@ class EventsController < ApplicationController
     @pro = current_pro
 
   
-    @idprof = @event.professor_id
-    @prof = Pro.find(@idprof)
     
  
    
@@ -124,6 +122,9 @@ class EventsController < ApplicationController
       flash[:success] = "Vous participez à l'événement en tant qu'élève!" 
       redirect_to "/"
       if @event.professor_id != nil
+
+        @idprof = @event.professor_id
+        @prof = Pro.find(@idprof)
         SendMailAfterFiveMailer.send_five(@prof, @event).deliver
       end
     elsif
@@ -240,12 +241,14 @@ class EventsController < ApplicationController
   def addprotoinvitation  
     @pro = Pro.find(params[:pro_id])
     @event = Event.find(params[:test])
+    @email_prof = @pro.email
  #   if 
  #   @event.attendees.include? @user
  #   flash[:danger] = "#{@user.name} participe déjà à l'événement !" 
  #   redirect_to @event
  #   else
     @event.proinvitatees << @pro
+    SendMailAddproMailer.notify_addpro(@email_prof,@event)
     flash[:success] = "#{@pro.firstname} est ajouté à l'événement ! !" 
     redirect_to @event
  #   end
