@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+
+  resources :charges
+  
   get 'eles/index'
   get 'eles/show'
   devise_for :pro, :controllers => { registrations: 'registrations_pro' }

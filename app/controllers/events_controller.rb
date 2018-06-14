@@ -222,14 +222,14 @@ class EventsController < ApplicationController
     @event = Event.find(params[:id])
     @event.update_columns(etat: "close")
 
-  # il faudra qu'elle envoie un mail à tous les ele enregistrés dans @event.subscribeX
+  # il faudra qu'elle envoie un mail à tous les ele enregistrés dans @event.asubscribeX
   # "le prof a validé l'event, allez sur la page de l'event pour payer et recevoir votre pass"
     redirect_to @event
   end
 
 
   def pay
-    
+    @user = Ele.current_ele
     @event = Event.find(params[:id])
 # faire payer grace a stripe et une fois que c'est fait, envoie de l'email avec pass
 
@@ -237,42 +237,52 @@ class EventsController < ApplicationController
       if !@event.asubscribe==nil?
         if @event.asubscribe == current_ele.id
           @event.update_columns(apayer: current_ele.id)
+          SendMailAfterPayment.notify(@user, @event).deliver
         end
       elsif !@event.asubscribe2==nil?
         if @event.asubscribe2 == current_ele.id
           @event.update_columns(apayer2: current_ele.id)
+          SendMailAfterPayment.notify(@user, @event).deliver
         end
       elsif !@event.asubscribe3==nil?
         if @event.asubscribe3 == current_ele.id
           @event.update_columns(apayer3: current_ele.id)
+          SendMailAfterPayment.notify(@user, @event).deliver
         end
       elsif !@event.asubscribe4==nil?
         if @event.asubscribe4 == current_ele.id
           @event.update_columns(apayer4: current_ele.id)
+          SendMailAfterPayment.notify(@user, @event).deliver
         end
       elsif !@event.asubscribe5==nil?
         if @event.asubscribe5 == current_ele.id
           @event.update_columns(apayer5: current_ele.id)
+          SendMailAfterPayment.notify(@user, @event).deliver
         end
       elsif !@event.asubscribe6==nil?
         if @event.asubscribe6 == current_ele.id
           @event.update_columns(apayer6: current_ele.id)
+          SendMailAfterPayment.notify(@user, @event).deliver
         end
       elsif !@event.asubscribe7==nil?
         if @event.asubscribe7 == current_ele.id
           @event.update_columns(apayer7: current_ele.id)
+          SendMailAfterPayment.notify(@user, @event).deliver
         end
       elsif !@event.asubscribe8==nil?
         if @event.asubscribe8 == current_ele.id
           @event.update_columns(apayer8: current_ele.id)
+          SendMailAfterPayment.notify(@user, @event).deliver
         end
       elsif !@event.asubscribe9==nil?
         if @event.asubscribe9 == current_ele.id
           @event.update_columns(apayer9: current_ele.id)
+          SendMailAfterPayment.notify(@user, @event).deliver
         end
       elsif !@event.asubscribe10==nil?
         if @event.asubscribe10 == current_ele.id
           @event.update_columns(apayer10: current_ele.id)
+          SendMailAfterPayment.notify(@user, @event).deliver
         end
       else
       end
