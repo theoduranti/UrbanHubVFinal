@@ -12,8 +12,9 @@ Rails.application.routes.draw do
 
   get "events/subscribe/:id", to: "events#subscribe"
   get "events/closingevent/:id", to: "events#closingevent"
-  get "events/pay/:id", to: "events#pay"
+  post "events/pay/:id", to: "events#pay", as: 'pay'
   get "events/subscribeandpay/:id", to: "events#subscribeandpay"
+  get "events/after_pay/:id", to: "events#after_pay", as: 'after_pay'
 
   get "events/ele/:ele_id/:id", to: "events#addeletoinvitation"
   get "events/pro/:pro_id/:id", to: "events#addprotoinvitation"

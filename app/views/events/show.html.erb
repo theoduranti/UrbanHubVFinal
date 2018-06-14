@@ -54,12 +54,29 @@
 <% elsif @event.etat == "close" %>
     <% if ele_signed_in? %>
         <% if @event.asubscribe.to_s.include? current_ele.id.to_s %>
-            <script src="https://checkout.stripe.com/checkout.js" class="stripe-button" 
-            data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
-            data-description="A month's subscription"
-            data-amount="item.price"
-            data-locale="auto">    
-            </script>
+        <%= form_tag pay_path do %>
+            <article>
+              <% if flash[:error].present? %>
+                <div id="error_explanation">
+                  <p><%= flash[:error] %></p>
+                </div>
+              <% end %>
+              <label class="amount">
+                <span>Amount: $5.00</span>
+              </label>
+            </article>
+          
+            <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                    data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+                    data-description="A month's subscription"
+                    data-amount="500"
+                    data-locale="auto"
+                    data-label="Confirmer payement et recevoir pass"></script>
+          
+            
+             
+             
+          <% end %>
     
         <% elsif @event.asubscribe2.to_s.include? current_ele.id.to_s %>
             <p class="text-center">  <%= link_to " payer et recevoir votre pass", { :controller => "events", :action => "pay"}, class: "btn btn-success" %> </p>

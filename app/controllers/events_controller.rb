@@ -229,66 +229,93 @@ class EventsController < ApplicationController
 
 
   def pay
-    @user = Ele.current_ele
+    @user = current_ele
     @event = Event.find(params[:id])
 # faire payer grace a stripe et une fois que c'est fait, envoie de l'email avec pass
+    @amount = 500
+        
+    customer = Stripe::Customer.create(
+      :email => params[:stripeEmail],
+      :source  => params[:stripeToken]
+    )
+
+    charge = Stripe::Charge.create(
+      :customer    => customer.id,
+      :amount      => @amount,
+      :description => 'Rails Stripe customer',
+      :currency    => 'usd'
+    )
+
+    
+
+    rescue Stripe::CardError => e
+    flash[:error] = e.message
+    redirect_to new_charge_path
+
+
+  redirect_to '/'
+  end
+#il faut rajouter la fontion evoi mail after validation
+  def after_pay
+   
+    @event = Event.find(params[:id]) 
 
     if ele_signed_in?
       if !@event.asubscribe==nil?
         if @event.asubscribe == current_ele.id
           @event.update_columns(apayer: current_ele.id)
-          SendMailAfterPayment.notify(@user, @event).deliver
+          
+          
         end
       elsif !@event.asubscribe2==nil?
         if @event.asubscribe2 == current_ele.id
           @event.update_columns(apayer2: current_ele.id)
-          SendMailAfterPayment.notify(@user, @event).deliver
+          
         end
       elsif !@event.asubscribe3==nil?
         if @event.asubscribe3 == current_ele.id
           @event.update_columns(apayer3: current_ele.id)
-          SendMailAfterPayment.notify(@user, @event).deliver
+         
         end
       elsif !@event.asubscribe4==nil?
         if @event.asubscribe4 == current_ele.id
           @event.update_columns(apayer4: current_ele.id)
-          SendMailAfterPayment.notify(@user, @event).deliver
+          
+         
         end
       elsif !@event.asubscribe5==nil?
         if @event.asubscribe5 == current_ele.id
           @event.update_columns(apayer5: current_ele.id)
-          SendMailAfterPayment.notify(@user, @event).deliver
+         
         end
       elsif !@event.asubscribe6==nil?
         if @event.asubscribe6 == current_ele.id
           @event.update_columns(apayer6: current_ele.id)
-          SendMailAfterPayment.notify(@user, @event).deliver
+          
         end
       elsif !@event.asubscribe7==nil?
         if @event.asubscribe7 == current_ele.id
           @event.update_columns(apayer7: current_ele.id)
-          SendMailAfterPayment.notify(@user, @event).deliver
+          
         end
       elsif !@event.asubscribe8==nil?
         if @event.asubscribe8 == current_ele.id
           @event.update_columns(apayer8: current_ele.id)
-          SendMailAfterPayment.notify(@user, @event).deliver
         end
       elsif !@event.asubscribe9==nil?
         if @event.asubscribe9 == current_ele.id
           @event.update_columns(apayer9: current_ele.id)
-          SendMailAfterPayment.notify(@user, @event).deliver
+          
         end
       elsif !@event.asubscribe10==nil?
         if @event.asubscribe10 == current_ele.id
           @event.update_columns(apayer10: current_ele.id)
-          SendMailAfterPayment.notify(@user, @event).deliver
+          
         end
       else
       end
     end
-
-  redirect_to @event
+    redirect_to '/'
   end
 
   def subscribeandpay
