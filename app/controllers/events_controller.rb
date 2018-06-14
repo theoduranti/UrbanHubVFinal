@@ -100,6 +100,13 @@ class EventsController < ApplicationController
     @event = Event.find(params[:id])
     @user = current_ele
     @pro = current_pro
+
+  
+    @idprof = @event.professor_id
+    @prof = Pro.find(@idprof)
+    
+ 
+   
     if 
       ele_signed_in? && @event.asubscribe == nil
       
@@ -116,6 +123,9 @@ class EventsController < ApplicationController
       SubscribeToEventMailer.send_mail_after_subscribing(@user, @event).deliver
       flash[:success] = "Vous participez à l'événement en tant qu'élève!" 
       redirect_to "/"
+      if @event.professor_id != nil
+        SendMailAfterFiveMailer.send_five(@prof, @event).deliver
+      end
     elsif
       ele_signed_in? && @event.asubscribe3 == nil
       
@@ -123,6 +133,9 @@ class EventsController < ApplicationController
       @event.eleattendees << current_ele
       SubscribeToEventMailer.send_mail_after_subscribing(@user, @event).deliver
       flash[:success] = "Vous participez à l'événement en tant qu'élève!" 
+      if @event.professor_id != nil
+        SendMailAfterFiveMailer.send_five(@prof, @event).deliver
+      end
       redirect_to "/"
     elsif
       ele_signed_in? && @event.asubscribe4 == nil
@@ -130,7 +143,11 @@ class EventsController < ApplicationController
       @event.update_columns(asubscribe4: current_ele.id)
       @event.eleattendees << current_ele
       flash[:success] = "Vous participez à l'événement en tant qu'élève!" 
+      if @event.professor_id != nil
+        SendMailAfterFiveMailer.send_five(@prof, @event).deliver
+      end
       redirect_to "/"
+      
     elsif
       ele_signed_in? && @event.asubscribe5 == nil
       SubscribeToEventMailer.send_mail_after_subscribing(@user, @event).deliver
@@ -138,11 +155,15 @@ class EventsController < ApplicationController
       @event.eleattendees << current_ele
       flash[:success] = "Vous participez à l'événement en tant qu'élève!" 
       redirect_to "/"
+      if @event.professor_id != nil
+        SendMailAfterFiveMailer.send_five(@prof, @event).deliver
+      end
     elsif
       ele_signed_in? && @event.asubscribe6 == nil
       SubscribeToEventMailer.send_mail_after_subscribing(@user, @event).deliver
       @event.update_columns(asubscribe6: current_ele.id)
       @event.eleattendees << current_ele
+      SendMailAfterFiveMailer.send_five(@event.professor_id.email, @event).deliver
       flash[:success] = "Vous participez à l'événement en tant qu'élève!" 
       redirect_to "/"
     elsif
@@ -152,11 +173,17 @@ class EventsController < ApplicationController
       @event.eleattendees << current_ele
       flash[:success] = "Vous participez à l'événement en tant qu'élève!" 
       redirect_to "/"
+      if @event.professor_id != nil
+        SendMailAfterFiveMailer.send_five(@prof, @event).deliver
+      end
     elsif
       ele_signed_in? && @event.asubscribe8 == nil
       SubscribeToEventMailer.send_mail_after_subscribing(@user, @event).deliver
       @event.update_columns(asubscribe8: current_ele.id)
-      @event.eleattendees << current_ele
+      @event.eleattendees << 
+      if @event.professor_id != nil
+        SendMailAfterFiveMailer.send_five(@prof, @event).deliver
+      end
       flash[:success] = "Vous participez à l'événement en tant qu'élève!" 
       redirect_to "/"
     elsif
@@ -164,6 +191,10 @@ class EventsController < ApplicationController
       SubscribeToEventMailer.send_mail_after_subscribing(@user, @event).deliver
       @event.update_columns(asubscribe9: current_ele.id)
       @event.eleattendees << current_ele
+      if @event.professor_id != nil
+        SendMailAfterFiveMailer.send_five(@prof, @event).deliver
+      end
+      
       flash[:success] = "Vous participez à l'événement en tant qu'élève!" 
       redirect_to "/"
     elsif
@@ -171,6 +202,9 @@ class EventsController < ApplicationController
       SubscribeToEventMailer.send_mail_after_subscribing(@user, @event).deliver
       @event.update_columns(asubscribe10: current_ele.id)
       @event.eleattendees << current_ele
+      if @event.professor_id != nil
+        SendMailAfterFiveMailer.send_five(@prof, @event).deliver
+      end
       flash[:success] = "Vous participez à l'événement en tant qu'élève!" 
       redirect_to "/"
     elsif
@@ -221,6 +255,7 @@ class EventsController < ApplicationController
   def closingevent
     @event = Event.find(params[:id])
     @event.update_columns(etat: "close")
+    
 
   # il faudra qu'elle envoie un mail à tous les ele enregistrés dans @event.asubscribeX
   # "le prof a validé l'event, allez sur la page de l'event pour payer et recevoir votre pass"
@@ -258,13 +293,14 @@ class EventsController < ApplicationController
 #il faut rajouter la fontion evoi mail after validation
   def after_pay
    
-    @event = Event.find(params[:id]) 
+    @event = Event.find(params[:id])
+    @user = current_ele 
+   
 
     if ele_signed_in?
       if !@event.asubscribe==nil?
         if @event.asubscribe == current_ele.id
-          @event.update_columns(apayer: current_ele.id)
-          
+          @event.update_columns(apayer: current_ele.id)    
           
         end
       elsif !@event.asubscribe2==nil?
@@ -310,11 +346,12 @@ class EventsController < ApplicationController
       elsif !@event.asubscribe10==nil?
         if @event.asubscribe10 == current_ele.id
           @event.update_columns(apayer10: current_ele.id)
-          
+        
         end
       else
       end
     end
+    SendMailAfterPaymentMailer.notify(@user, @event).deliver
     redirect_to '/'
   end
 

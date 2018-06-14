@@ -16,7 +16,8 @@
             <p> BOUTON VALIDE (renvoie à la fonction closingevent du events_controller (qui met @event.etat == "close")) </p> <p> BOUTON ANNULE </p>
             <p class="text-center">  <%= link_to "Valider l'event", { :controller => "events", :action => "closingevent"}, class: "btn btn-success" %> </p>
         <% else %>
-            <p> Le post de prof est occupé par : <%= @event.professor_id.email %> </p>
+            <p> Le post de prof est occupé par : <%=@professor.email%></p>
+            
         <% end %>
 
 
@@ -52,6 +53,7 @@
     <% end %>
 
 <% elsif @event.etat == "close" %>
+   
     <% if ele_signed_in? %>
         <% if @event.asubscribe.to_s.include? current_ele.id.to_s %>
         <%= form_tag pay_path do %>
@@ -125,6 +127,7 @@
 <% if @event.professeur == "present" %>
     <p>===============</p>
     <p><%=@professor.firstname%></p></br></br>
+    <p><%=@professor.email%></p>
 <% else %>
 <p>Pas encore de prof, invitez-en ci-dessous</p>
 <% end %> </br></br>
