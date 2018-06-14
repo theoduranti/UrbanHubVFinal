@@ -84,13 +84,12 @@
             <p class="text-center">  <%= link_to " payer et recevoir votre pass", { :controller => "events", :action => "pay"}, class: "btn btn-success" %> </p>        
             <p> BOUTON PAYER renvoie vers la fonction pay (stripe) (qui permet de rentrer le current user dans apayer et de leur envoyer un mail) </p>
         <% elsif @event.asubscibe10 == nil %>
-            <p class="text-center">  <%= link_to " payer et recevoir votre pass", { :controller => "events", :action => "pay"}, class: "btn btn-success" %> </p>        
-            <p> BOUTON PAYER renvoie vers la fonction pay (stripe) (qui permet de rentrer le current user dans apayer et de leur envoyer un mail) </p>
+            <p class="text-center">  <%= link_to "S'inscrire, payer et recevoir votre pass", { :controller => "events", :action => "subscribeandpay"}, class: "btn btn-success" %> </p>        
+            <p> BOUTON PAYER ET SUBSCRIBE renvoie vers la fonction pay (stripe) (qui permet de rentrer le current user dans apayer et de leur envoyer un mail) </p>
         <% else %>
             <p> Cet événement est complet </p>
         <% end %>
-    <% else  %> <p> vous etes profs et vous avez validé l évent</p>
-
+    <% else  %> 
     <% end %>
 
 <% else %>
