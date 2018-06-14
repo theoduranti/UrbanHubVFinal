@@ -1,0 +1,23 @@
+<h1>Eles#index</h1>
+<p>Find me in app/views/eles/index.html.erb</p>
+
+
+
+<table class="table table-striped">
+  <tr>
+    <th>Nom de l eleve</th>
+    <th>passions</th>
+    <th>lien vers son profil</th>
+
+  </tr>
+ 
+  <% @eles.each do |ele|%> 
+    <tr>
+      <td><%= ele.firstname %></td>
+      <td><%= ele.passion1 %>, <%= ele.passion2 %></td>
+      <td><%= link_to "Voir son profil", ele_path(ele) %></td>
+
+    </tr>
+  <% end %>
+
+</table>

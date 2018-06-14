@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'eles/index'
+  get 'eles/show'
   devise_for :pro, :controllers => { registrations: 'registrations_pro' }
   devise_for :ele, :controllers => { registrations: 'registrations_ele' }
   resources :events
@@ -13,6 +15,9 @@ Rails.application.routes.draw do
   get "events/ele/:ele_id/:id", to: "events#addeletoinvitation"
   get "events/pro/:pro_id/:id", to: "events#addprotoinvitation"
   
+
+  get "eles/index", to: "eles#index", as: "eles"
+  get "eles/show/:id", to: "eles#show", as: "ele"
   
   
 end

@@ -229,41 +229,56 @@ class EventsController < ApplicationController
 
 
   def pay
+    
     @event = Event.find(params[:id])
 # faire payer grace a stripe et une fois que c'est fait, envoie de l'email avec pass
-    if 
-      ele_signed_in? && @event.apayer == nil
-      @event.update_columns(apayer: current_ele.id)
-    elsif
-      ele_signed_in? && @event.apayer2 == nil
-      @event.update_columns(apayer2: current_ele.id)
-    elsif
-      ele_signed_in? && @event.apayer3 == nil
-      @event.update_columns(apayer3: current_ele.id)
-    elsif
-      ele_signed_in? && @event.apayer4 == nil
-      @event.update_columns(apayer4: current_ele.id)
-    elsif
-      ele_signed_in? && @event.apayer5 == nil
-      @event.update_columns(apayer5: current_ele.id)
-    elsif
-      ele_signed_in? && @event.apayer6 == nil
-      @event.update_columns(apayer6: current_ele.id)
-    elsif
-      ele_signed_in? && @event.apayer7 == nil
-      @event.update_columns(apayer7: current_ele.id)
-    elsif
-      ele_signed_in? && @event.asubscribe8 == nil
-      @event.update_columns(apayer8: current_ele.id)
-    elsif
-      ele_signed_in? && @event.apayer9 == nil
-      @event.update_columns(apayer9: current_ele.id)
-    elsif
-      ele_signed_in? && @event.apayer10 == nil
-      @event.update_columns(apayer10: current_ele.id)
-    else
+
+    if ele_signed_in?
+      if !@event.asubscribe==nil?
+        if @event.asubscribe == current_ele.id
+          @event.update_columns(apayer: current_ele.id)
+        end
+      elsif !@event.asubscribe2==nil?
+        if @event.asubscribe2 == current_ele.id
+          @event.update_columns(apayer2: current_ele.id)
+        end
+      elsif !@event.asubscribe3==nil?
+        if @event.asubscribe3 == current_ele.id
+          @event.update_columns(apayer3: current_ele.id)
+        end
+      elsif !@event.asubscribe4==nil?
+        if @event.asubscribe4 == current_ele.id
+          @event.update_columns(apayer4: current_ele.id)
+        end
+      elsif !@event.asubscribe5==nil?
+        if @event.asubscribe5 == current_ele.id
+          @event.update_columns(apayer5: current_ele.id)
+        end
+      elsif !@event.asubscribe6==nil?
+        if @event.asubscribe6 == current_ele.id
+          @event.update_columns(apayer6: current_ele.id)
+        end
+      elsif !@event.asubscribe7==nil?
+        if @event.asubscribe7 == current_ele.id
+          @event.update_columns(apayer7: current_ele.id)
+        end
+      elsif !@event.asubscribe8==nil?
+        if @event.asubscribe8 == current_ele.id
+          @event.update_columns(apayer8: current_ele.id)
+        end
+      elsif !@event.asubscribe9==nil?
+        if @event.asubscribe9 == current_ele.id
+          @event.update_columns(apayer9: current_ele.id)
+        end
+      elsif !@event.asubscribe10==nil?
+        if @event.asubscribe10 == current_ele.id
+          @event.update_columns(apayer10: current_ele.id)
+        end
+      else
+      end
     end
-    redirect_to @event
+
+  redirect_to @event
   end
 
   def subscribeandpay
